@@ -55,7 +55,7 @@ Please note that the actual methods for `createNewRun`, `sendRun`, and `createRu
 AiCore uses the following dependencies:
 
 - PaperMC API
-- OpenAI GPT-3 Java Service
+- OpenAI GPT-3 Java Service (https://github.com/TheoKanning/openai-java)
 - Project Lombok
 
 This Plugin is required on the server to use the AiCore API.
