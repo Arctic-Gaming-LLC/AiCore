@@ -1,0 +1,7 @@
+name: AiCore
+version: '${version}'
+main: dev.arctic.aicore.AiCore
+api-version: '1.18'
+libraries:
+  - com.theokanning.openai-gpt3-java:service:0.18.2
+load: STARTUP
