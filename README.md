@@ -1,3 +1,4 @@
+[![](https://jitpack.io/v/Arctic-Gaming-LLC/AiCore.svg)](https://jitpack.io/#Arctic-Gaming-LLC/AiCore)
 # AiCore
 A library and utilities for working with OpenAI a little easier in Minecraft.
 Note that this README was mostly generated with Github CoPilot... good luck 👍
@@ -6,6 +7,23 @@ AiCore is designed to simplify the process of integrating OpenAI into your Minec
 
 ## How to Use the API
 To use the AiCore API, you need to create an instance of the `AiCoreService` class with your OpenAI API key and the name of your service or plugin. Here's a basic example:
+
+### Gradle Implementation using Jitpack
+```	
+		repositories {
+			mavenCentral()
+			maven { url 'https://jitpack.io' }
+		}
+```
+
+```
+dependencies {
+	        implementation 'com.github.Arctic-Gaming-LLC:AiCore:-SNAPSHOT'
+	}
+```
+That's it. Normal stuff!
+
+
 
 ```java
 import dev.arctic.aicore.objects.AiCoreService;
