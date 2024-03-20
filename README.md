@@ -1,6 +1,6 @@
 # AiCore
 A library and utilities for working with OpenAI a little easier in Minecraft.
-Note that this README was mostly generated with Github CoPilot... good luck :thumbs_up:
+Note that this README was mostly generated with Github CoPilot... good luck 👍
 ## Intended Usage
 AiCore is designed to simplify the process of integrating OpenAI into your Minecraft projects. It provides a set of utilities and a library that abstracts the complexities of the OpenAI API, allowing developers to focus on implementing AI functionalities in their Minecraft mods or plugins.
 
