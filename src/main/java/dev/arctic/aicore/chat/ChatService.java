@@ -5,8 +5,11 @@ import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.service.OpenAiService;
 import dev.arctic.aicore.objects.AiModel;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
+
+import static dev.arctic.aicore.AiCore.plugin;
 
 /**
  * Provides chat services by interfacing with the OpenAI API to generate responses to prompts.
@@ -31,24 +34,30 @@ public class ChatService {
      * @param model  The AI model configuration to use for the request.
      * @return The last chat completion response from OpenAI. Returns "No response from OpenAI" if there are no responses.
      */
-    public String getLastResponse(String prompt, AiModel model) {
-        ChatMessage message = new ChatMessage("user", prompt);
+    public void getLastResponseAsync(String prompt, AiModel model) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                ChatMessage message = new ChatMessage("user", prompt);
 
-        ChatCompletionRequest request = ChatCompletionRequest.builder()
-                .model(model.getModel())
-                .n(model.getN())
-                .maxTokens(model.getMaxTokens())
-                .temperature(model.getTemperature())
-                .messages(List.of(message))
-                .build();
+                ChatCompletionRequest request = ChatCompletionRequest.builder()
+                        .model(model.getModel())
+                        .n(model.getN())
+                        .maxTokens(model.getMaxTokens())
+                        .temperature(model.getTemperature())
+                        .messages(List.of(message))
+                        .build();
 
-        List<ChatCompletionChoice> results = service.createChatCompletion(request).getChoices();
-        if (!results.isEmpty()) {
-            String response = results.get(0).getMessage().getContent();
-            return response;
-        }
-        shutdownService();
-        return "No response from OpenAI";
+                List<ChatCompletionChoice> results = service.createChatCompletion(request).getChoices();
+                String response;
+                if (!results.isEmpty()) {
+                    response = results.get(0).getMessage().getContent();
+                } else {
+                    shutdownService();
+                    response = "No response from OpenAI";
+                }
+            }
+        }.runTaskAsynchronously(plugin);
     }
 
     /**
