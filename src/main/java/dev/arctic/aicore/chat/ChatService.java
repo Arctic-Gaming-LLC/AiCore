@@ -6,7 +6,7 @@ import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.service.OpenAiService;
 import dev.arctic.aicore.objects.AiModel;
 import org.bukkit.scheduler.BukkitRunnable;
-
+import java.util.concurrent.CompletableFuture;
 import java.util.List;
 
 import static dev.arctic.aicore.AiCore.plugin;
@@ -34,7 +34,9 @@ public class ChatService {
      * @param model  The AI model configuration to use for the request.
      * @return The last chat completion response from OpenAI. Returns "No response from OpenAI" if there are no responses.
      */
-    public void getLastResponseAsync(String prompt, AiModel model) {
+    public CompletableFuture<String> getLastResponseAsync(String prompt, AiModel model) {
+        CompletableFuture<String> future = new CompletableFuture<>();
+
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -56,8 +58,12 @@ public class ChatService {
                     shutdownService();
                     response = "No response from OpenAI";
                 }
+
+                future.complete(response);
             }
         }.runTaskAsynchronously(plugin);
+
+        return future;
     }
 
     /**
@@ -67,18 +73,28 @@ public class ChatService {
      * @param model  The AI model configuration to use for the request.
      * @return A list of ChatCompletionChoices, each representing a response from OpenAI.
      */
-    public List<ChatCompletionChoice> getAllResponses(String prompt, AiModel model) {
-        ChatMessage message = new ChatMessage("user", prompt);
+    public CompletableFuture<List<ChatCompletionChoice>> getAllResponsesAsync(String prompt, AiModel model) {
+        CompletableFuture<List<ChatCompletionChoice>> future = new CompletableFuture<>();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                ChatMessage message = new ChatMessage("user", prompt);
 
-        ChatCompletionRequest request = ChatCompletionRequest.builder()
-                .model(model.getModel())
-                .n(model.getN())
-                .maxTokens(model.getMaxTokens())
-                .temperature(model.getTemperature())
-                .messages(List.of(message))
-                .build();
+                ChatCompletionRequest request = ChatCompletionRequest.builder()
+                        .model(model.getModel())
+                        .n(model.getN())
+                        .maxTokens(model.getMaxTokens())
+                        .temperature(model.getTemperature())
+                        .messages(List.of(message))
+                        .build();
 
-        return service.createChatCompletion(request).getChoices();
+                List<ChatCompletionChoice> results = service.createChatCompletion(request).getChoices();
+
+                future.complete(results);
+            }
+        }.runTaskAsynchronously(plugin);
+
+        return future;
     }
 
     /**
