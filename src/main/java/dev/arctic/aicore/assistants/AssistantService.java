@@ -1,6 +1,5 @@
 package dev.arctic.aicore.assistants;
 
-import com.theokanning.openai.OpenAiResponse;
 import com.theokanning.openai.assistants.Assistant;
 import com.theokanning.openai.messages.Message;
 import com.theokanning.openai.messages.MessageRequest;
@@ -16,7 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
-import static dev.arctic.aicore.AiCore.plugin;
+import static dev.arctic.aicore.AiCore.AICORE_PLUGIN;
 
 /**
  * The AssistantService class is responsible for managing the interactions with the OpenAI service.
@@ -127,12 +126,12 @@ public class AssistantService {
                         public void run() {
                             createRunCompletion(trackedRun);
                         }
-                    }.runTaskLaterAsynchronously(plugin, 20);
+                    }.runTaskLaterAsynchronously(AICORE_PLUGIN, 20);
                     return;
                 }
                 trackedRun.setOutput(service.listMessages(trackedRun.getThreadID()));
                 trackedRun.setLastUpdated(new Date());
             }
-        }.runTaskAsynchronously(plugin);
+        }.runTaskAsynchronously(AICORE_PLUGIN);
     }
 }

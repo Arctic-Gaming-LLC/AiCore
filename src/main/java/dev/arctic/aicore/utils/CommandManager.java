@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Level;
 
-import static dev.arctic.aicore.AiCore.plugin;
+import static dev.arctic.aicore.AiCore.AICORE_PLUGIN;
 
 public class CommandManager implements CommandExecutor {
     @Override
@@ -35,10 +35,10 @@ public class CommandManager implements CommandExecutor {
 
         } else {
             String names = "";
-            for (AiCoreService service : plugin.openServices) {
+            for (AiCoreService service : AICORE_PLUGIN.openServices) {
                 names += service.getName() + ", ";
             }
-            plugin.getLogger().log(Level.WARNING, "Open Services: " + names);
+            AICORE_PLUGIN.getLogger().log(Level.WARNING, "Open Services: " + names);
         }
         return true;
     }

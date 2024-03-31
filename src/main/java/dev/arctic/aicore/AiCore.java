@@ -9,7 +9,7 @@ import java.util.*;
 
 public final class AiCore extends JavaPlugin {
 
-    public static AiCore plugin;
+    public static AiCore AICORE_PLUGIN;
     /**
      * A List of all open services, iterable for updating, viewing, and closing services
      */
@@ -18,7 +18,7 @@ public final class AiCore extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        plugin = this;
+        AICORE_PLUGIN = this;
 
         // Register the CommandManager and TabComplete classes
         Objects.requireNonNull(this.getCommand("aicore")).setExecutor(new CommandManager());

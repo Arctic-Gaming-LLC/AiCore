@@ -9,7 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.concurrent.CompletableFuture;
 import java.util.List;
 
-import static dev.arctic.aicore.AiCore.plugin;
+import static dev.arctic.aicore.AiCore.AICORE_PLUGIN;
 
 /**
  * Provides chat services by interfacing with the OpenAI API to generate responses to prompts.
@@ -61,7 +61,7 @@ public class ChatService {
 
                 future.complete(response);
             }
-        }.runTaskAsynchronously(plugin);
+        }.runTaskAsynchronously(AICORE_PLUGIN);
 
         return future;
     }
@@ -92,7 +92,7 @@ public class ChatService {
 
                 future.complete(results);
             }
-        }.runTaskAsynchronously(plugin);
+        }.runTaskAsynchronously(AICORE_PLUGIN);
 
         return future;
     }

@@ -29,13 +29,13 @@ public class AiCoreService {
     @Getter
     private AssistantService assistantService;
     /**
-     * The name of the service or plugin
+     * The name of the service or AICORE_PLUGIN
      */
     @Getter
     public String name;
 
     /**
-     * Constructs a new AiCoreService instance. Intended 1 key per plugin
+     * Constructs a new AiCoreService instance. Intended 1 key per AICORE_PLUGIN
      *
      * @param apiKey The API key used for making OpenAI API requests.
      */
