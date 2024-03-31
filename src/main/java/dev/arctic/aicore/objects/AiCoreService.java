@@ -41,7 +41,7 @@ public class AiCoreService {
      */
     public AiCoreService(String apiKey, String name) {
         // Initialize the services with the given API key
-        this.service = new OpenAiService(apiKey, Duration.ofSeconds(30));
+        this.service = new OpenAiService(apiKey, Duration.ofSeconds(86400));
         this.chatService = new ChatService(service);
         this.assistantService = new AssistantService(service);
 

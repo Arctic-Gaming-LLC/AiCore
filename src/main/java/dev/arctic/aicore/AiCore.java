@@ -3,13 +3,14 @@ package dev.arctic.aicore;
 import dev.arctic.aicore.objects.AiCoreService;
 import dev.arctic.aicore.utils.CommandManager;
 import dev.arctic.aicore.utils.TabComplete;
+import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
 public final class AiCore extends JavaPlugin {
 
-    public static AiCore AICORE_PLUGIN;
+    @Getter public static AiCore AICORE_PLUGIN;
     /**
      * A List of all open services, iterable for updating, viewing, and closing services
      */
