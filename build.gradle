@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'dev.arctic'
-version = '0.1_DEV'
+version = '0.1.2'
 
 repositories {
     mavenCentral()
@@ -58,7 +58,6 @@ processResources {
 shadowJar {
     archiveClassifier.set('')
     configurations = [project.configurations.runtimeClasspath]
-    minimize()
 }
 
 build.dependsOn(shadowJar)
